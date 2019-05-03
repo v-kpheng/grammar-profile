@@ -1,6 +1,8 @@
 # Grammar Profile
 
-Learning more about grammars and how they are used in speech recognition engines and the [Speech Recognition API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition) in particular
+Learning more about grammars and how they are used in speech recognition engines and the [Speech Recognition API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition) in particular.
+
+The API doesn't seem to respect grammars.  Instead of matching only the grammar, the API will fire a `result` event whenever it is able to transcribe what was said.  Because of this, this repo introduces "soft grammars".
 
 ## Notes
 The Speech Recognition API is experimental and is [currently only supported by Chrome](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility).
