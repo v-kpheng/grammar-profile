@@ -1,5 +1,14 @@
+const grammar =
+`
+#JSGF V1.0;
+
+grammar colors;
+
+public <color> = red | blue | green | yellow ;
+`;
+
 class SpeechRecognition {
-  constructor(opts) {
+  constructor(grammar) {
     const api = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition;
 
     if (!api) {
@@ -7,6 +16,18 @@ class SpeechRecognition {
     }
 
     this.api = new api();
+
+    if (grammar) {
+      this.addGrammar(grammar);
+    }
+  }
+
+  addGrammar(grammar) {
+    const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList || window.mozSpeechGrammarList || window.msSpeechGrammarList;
+    const speechRecognitionList = new SpeechGrammarList();
+
+    speechRecognitionList.addFromString(grammar, 1);
+    this.api.grammars = speechRecognitionList;
   }
 
   // Brings up the "Allow microphone access" dialog and starts the SR engine
@@ -46,5 +67,5 @@ class SpeechRecognition {
   }
 }
 
-const sr = new SpeechRecognition();
+const sr = new SpeechRecognition(grammar);
 sr.start();
