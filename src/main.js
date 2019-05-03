@@ -22,11 +22,16 @@ class SpeechRecognition {
     }
   }
 
+  normalizeGrammar(grammar) {
+    return grammar.replace(/\n/g, ' ').trim();
+  }
+
   addGrammar(grammar) {
     const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList || window.mozSpeechGrammarList || window.msSpeechGrammarList;
     const speechRecognitionList = new SpeechGrammarList();
+    const normalizedGrammar = this.normalizeGrammar(grammar);
 
-    speechRecognitionList.addFromString(grammar, 1);
+    speechRecognitionList.addFromString(normalizedGrammar, 1);
     this.api.grammars = speechRecognitionList;
   }
 
